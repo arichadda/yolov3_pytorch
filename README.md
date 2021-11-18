@@ -13,7 +13,7 @@ See https://pjreddie.com/darknet/yolo/ for better explanation of how yolov3 obje
 Pretrained weights are available at: **http://www.ollihuotari.com/data/yolov3_pytorch/** . They are converted from https://pjreddie.com/darknet/yolo/. Check out the notebooks for examples how to use them.
 
 
-# README for YOLOv3 Pytorch Object Detection for ROS
+# YOLOv3 Pytorch Object Detection for ROS
 
 Thank you to ![Olli Huotari](http://www.ollihuotari.com/) for the inital implementation. 
 
