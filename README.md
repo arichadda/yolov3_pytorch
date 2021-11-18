@@ -23,7 +23,7 @@ To run the object detection ROS node, simply run `python object_detection.py` af
 
 For any question, feel free to reach out to me via ![email](ari.chadda@gmail.com).  
 
-Inference example: 
+### Inference example: 
 
 ![img](https://github.com/arichadda/yolov3_pytorch/blob/master/object_detection/real.png)
 
