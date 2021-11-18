@@ -37,8 +37,8 @@ class Yolov3Base(nn.Module, metaclass=ABCMeta):
 
     def predict_img(self, imgs, conf_thresh=0.25):
         self.eval()
-        if len(imgs.shape) == 3: imgs = imgs.unsqueeze(-1) 
-        
+        if len(imgs.shape) == 3: imgs = imgs.unsqueeze(-1)
+
         outputs = self.forward(imgs)
         return self.boxes_from_output(outputs, conf_thresh)
 
@@ -58,7 +58,7 @@ class Yolov3Base(nn.Module, metaclass=ABCMeta):
                 d[name.split('.')[0]].add(param.requires_grad)
         if not print_all:
             for k,v in d.items():
-                print(k, ': ', v)        
+                print(k, ': ', v)
 
     def load_backbone(self, h5_path):
         state_old = self.state_dict()
@@ -69,7 +69,7 @@ class Yolov3Base(nn.Module, metaclass=ABCMeta):
             if state_old[k].shape != state_new[k].shape:
                 skipped_layers.append(k)
                 del state_new[k]
-        
+
         # for k in list(state_dict.keys()):
         #     if k.startswith(('yolo_0_pre.15', 'yolo_1_pre.20')):
         #         del state_dict[k]

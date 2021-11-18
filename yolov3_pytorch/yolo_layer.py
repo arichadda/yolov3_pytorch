@@ -10,7 +10,7 @@ from .utils import bbox_iou, multi_bbox_ious
 
 
 class YoloLayer(nn.Module):
-    def __init__(self, anchors, stride, num_classes): 
+    def __init__(self, anchors, stride, num_classes):
         super().__init__()
         self.anchors, self.stride = np.array(anchors), stride
         self.num_classes = num_classes
@@ -19,10 +19,10 @@ class YoloLayer(nn.Module):
         return self.anchors/self.stride
 
     def get_region_boxes(self, output, conf_thresh):
-        if output.dim() == 3: output = output.unsqueeze(0)  
+        if output.dim() == 3: output = output.unsqueeze(0)
         device = output.device # torch.device(torch_device)
         anchors = torch.from_numpy(self.get_masked_anchors().astype(np.float32)).to(device)
-        
+
         nB = output.size(0)
         nA = len(anchors)
         nC = self.num_classes
@@ -62,7 +62,7 @@ class YoloLayer(nn.Module):
 
 
         all_boxes = [[] for i in range(nB)]
-        
+
         inds = torch.LongTensor(range(0,len(det_confs)))
         for ind in inds[det_confs > conf_thresh]:
             bcx = xs[ind]
@@ -73,7 +73,7 @@ class YoloLayer(nn.Module):
             box = [bcx/nW, bcy/nH, bw/nW, bh/nH, det_confs[ind], cls_max_confs[ind], cls_max_ids[ind]]
             box = [i.item() for i in box]
 
-            batch = math.ceil(ind/(nA*nH*nW))
+            batch = math.floor(ind/(nA*nH*nW))
             all_boxes[batch].append(box)
 
         return all_boxes
@@ -175,7 +175,7 @@ class YoloLayer(nn.Module):
         pred_boxes[0] = coord[0] + grid_x # bx = σ(tx) + cx
         pred_boxes[1] = coord[1] + grid_y
         pred_boxes[2] = coord[2].exp() * anchor_w # pw*e(tw)
-        pred_boxes[3] = coord[3].exp() * anchor_h 
+        pred_boxes[3] = coord[3].exp() * anchor_h
         pred_boxes = pred_boxes.transpose(0,1).contiguous().view(-1,4)
 
         coord_mask, conf_mask, cls_mask, tcoord, tconf, tcls = \
@@ -188,7 +188,7 @@ class YoloLayer(nn.Module):
         tcls = tcls[cls_mask].long().view(-1)
         cls_mask = cls_mask.view(-1, 1).repeat(1,nC).to(device)
         cls = cls[cls_mask].view(-1, nC)
-        
+
         tcoord = tcoord.view(4, cls_anchor_dim).to(device)
         tconf, tcls = tconf.to(device), tcls.to(device)
         coord_mask, conf_mask = coord_mask.view(cls_anchor_dim).to(device), conf_mask.to(device)
@@ -199,9 +199,9 @@ class YoloLayer(nn.Module):
         loss = loss_coord + loss_conf + loss_cls
 
         if math.isnan(loss.item()):
-            print(conf, tconf)            
+            print(conf, tconf)
             raise ValueError('YoloLayer has isnan in loss')
             #sys.exit(0)
-        
+
         if return_single_value: return loss
         else: return [loss, loss_coord, loss_conf, loss_cls]

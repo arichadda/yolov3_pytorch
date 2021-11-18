@@ -123,10 +123,10 @@ def plot_multi_detections(imgs, results, figsize=None, **kwargs):
     if not figsize:
         figsize = (12, min(math.ceil(len(imgs)/3)*4, 30))
     _, axes = plt.subplots(math.ceil(len(imgs)/3), 3, figsize=figsize)
-    
+
     if type(imgs) == np.ndarray and len(imgs.shape) == 4:
         imgs = [imgs]
-    
+
     classes = []
     boxes = []
     extras = []
@@ -148,7 +148,7 @@ def plot_multi_detections(imgs, results, figsize=None, **kwargs):
             plt.delaxes(ax)
         else:
             plot_img_boxes(imgs[j], boxes[j], classes[j], extras[j], plt_ax=ax, **kwargs)
-        
+
     plt.tight_layout()
 
 
@@ -176,7 +176,7 @@ def plot_img_data(x, y, rows=2, figsize=(12, 8), **kwargs):
         else:
             classes = targets[:, 0].astype(int)
         plot_img_boxes(x[j], targets[:, 1:], classes, plt_ax=ax, **kwargs)
-        
+
     plt.tight_layout()
 
 
@@ -228,4 +228,4 @@ def plot_img_boxes(img, boxes, classes, extras=None, plt_ax=None, figsize=None, 
         patch.set_path_effects([patheffects.Stroke(linewidth=1, foreground='black', alpha=0.5), patheffects.Normal()])
 
     _ = plt_ax.imshow(img)
-
+    plt.savefig('test.png')

@@ -12,30 +12,13 @@ See https://pjreddie.com/darknet/yolo/ for better explanation of how yolov3 obje
 
 Pretrained weights are available at: **http://www.ollihuotari.com/data/yolov3_pytorch/** . They are converted from https://pjreddie.com/darknet/yolo/. Check out the notebooks for examples how to use them.
 
-# Notebook Examples
 
-- **https://github.com/holli/yolov3_pytorch/blob/master/notebooks/basic_prediction.ipynb**
-  - show's basic loading of model and prediction
-- **https://github.com/holli/yolov3_pytorch/blob/master/notebooks/eval_coco_map.ipynb**
-  - map metric on coco evaluation data set. Just to make sure that this implementation is close enough to original implementation
-- **https://github.com/holli/yolov3_pytorch/blob/master/notebooks/train_voc.ipynb**
-  - training on a new dataset. Using voc dataset for an example.
+# README for YOLOv3 Pytorch Object Detection for ROS
 
-# Support / Commits
+Thank you to ![Olli Huotari](http://www.ollihuotari.com/) for the inital implementation. 
 
-Submit suggestions or feature requests as a GitHub Issue or Pull Request. Preferably create a test to show whats happening and what should happen.
+This repo includes a ROS node for subscribing to an image, running YOLOv3, and then sending the inferences to the robot if, like in my case, you could not run infrence on the robot due to the operating system not having a supported PyTorch wheel. In the case of running this on an actual robot, delete the scp portion and simply use the `angle_publisher_node.py`. 
 
-# Other Implementations
-
-There are some good pytorch implementations previously but many of them were using original cfg files to create the model. This works well but it's harder to modify and test other approaches. Some of them didn't include yolov3-tiny model or didn't work with using images of different sizes (e.g. 608 pixel sizes instead of default 416). Some nicer ones include:
-
-- https://github.com/marvis/pytorch-yolo3
-- https://github.com/andy-yun/pytorch-0.4-yolov3
-- https://github.com/jiasenlu/YOLOv3.pytorch
-
-# Licence
-
-Released under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-
+For any question, feel free to reach out to me via ![email](ari.chadda@gmail.com).  
 
 
