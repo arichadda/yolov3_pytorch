@@ -19,6 +19,8 @@ Thank you to ![Olli Huotari](http://www.ollihuotari.com/) for the inital impleme
 
 This repo includes a ROS node for subscribing to an image, running YOLOv3, and then sending the inferences to the robot if, like in my case, you could not run infrence on the robot due to the operating system not having a supported PyTorch wheel. In the case of running this on an actual robot, delete the scp portion and simply use the `angle_publisher_node.py`. 
 
+To run the object detection ROS node, simply run `python object_detection.py` after connecting to your ROS enviornment.
+
 For any question, feel free to reach out to me via ![email](ari.chadda@gmail.com).  
 
 
